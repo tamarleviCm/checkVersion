@@ -94,7 +94,7 @@ jobs:
       # PUSH TAGS IF IT IS A RELEASE
       - name: Push tag if release
         if: inputs.dev == false
-        run: git push --tags
+        run: git push && git push --tags
 
       # PUBLISH NPM PACKAGE
       - name: Publish npm package
