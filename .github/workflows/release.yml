@@ -61,6 +61,7 @@ jobs:
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git checkout -b automated-branch
 
       # SETUP NODE
       - uses: actions/setup-node@v4.0.2
@@ -93,7 +94,6 @@ jobs:
           
       - name: Commit changes
         run: |
-          git checkout -b automated-branch
           git add .
           git commit -m "Automated changes by GitHub Actions"
   
