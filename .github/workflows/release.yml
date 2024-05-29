@@ -114,7 +114,17 @@ jobs:
       - name: Push tag if release
         if: inputs.dev == false
         run: git push --set-upstream origin ${{ inputs.branch }} && git push --tags
-
+      
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automated-branch
+          title: "Automated Changes"
+          body: "This is an automated PR created by GitHub Actions"
+          base: main
+          draft: false
       # # PUBLISH NPM PACKAGE
       # - name: Publish npm package
       #   run: |
