@@ -90,7 +90,30 @@ jobs:
         run: |
           npm ci
           npm run build
-
+          
+      - name: Commit changes
+        run: |
+          git checkout -b automated-branch
+          git add .
+          git commit -m "Automated changes by GitHub Actions"
+  
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push --set-upstream origin automated-branch
+  
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automated-branch
+          title: "Automated Changes"
+          body: "This is an automated PR created by GitHub Actions"
+          base: main
+          draft: false
+          
       # PUSH TAGS IF IT IS A RELEASE
       - name: Push tag if release
         if: inputs.dev == false
