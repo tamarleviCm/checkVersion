@@ -18,6 +18,11 @@ on:
         required: false
         default: true
         type: boolean
+      branch:
+        description: 'Branch to run npm version patch on'
+        required: false
+        default: npm-version-patch
+        type: string
   workflow_dispatch:
     inputs:
       cliTag:
@@ -33,6 +38,11 @@ on:
         required: false
         default: true
         type: boolean
+      branch:
+        description: 'Branch to run npm version patch on'
+        required: false
+        default: npm-version-patch
+        type: string
 
 permissions:
   id-token: write
@@ -57,6 +67,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Create or Checkout Branch
+        run: |
+          git fetch origin
+          if git show-ref --verify --quiet refs/heads/${{ inputs.branch }}; then
+            git checkout ${{ inputs.branch }}
+          else
+            git checkout -b ${{ inputs.branch }} origin/main
+          fi
 
       # GIT CONFIGURATION
       - run: |
@@ -95,7 +113,7 @@ jobs:
       # PUSH TAGS IF IT IS A RELEASE
       - name: Push tag if release
         if: inputs.dev == false
-        run: git push && git push --tags
+        run: git push --set-upstream origin ${{ inputs.branch }} && git push --tags
 
       # # PUBLISH NPM PACKAGE
       # - name: Publish npm package
