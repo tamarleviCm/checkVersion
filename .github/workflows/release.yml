@@ -92,10 +92,10 @@ jobs:
           npm ci
           npm run build
           
-      - name: Commit changes
-        run: |
-          git add .
-          git commit -m "Automated changes by GitHub Actions"
+      # - name: Commit changes
+      #   run: |
+      #     git add .
+      #     git commit -m "Automated changes by GitHub Actions"
   
       - name: Push changes
         env:
