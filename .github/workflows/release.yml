@@ -113,7 +113,9 @@ jobs:
       # PUSH TAGS IF IT IS A RELEASE
       - name: Push tag if release
         if: inputs.dev == false
-        run: git push --set-upstream origin ${{ inputs.branch }} && git push --tags
+        run: |
+          git pull 
+          git push --set-upstream origin ${{ inputs.branch }} && git push --tags
       
       - name: Create Pull Request
         id: create_pr
