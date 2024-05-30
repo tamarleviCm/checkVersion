@@ -121,7 +121,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: inputs.branch
+          branch: ${{ inputs.branch }}
           title: "Automated Changes"
           body: "This is an automated PR created by GitHub Actions"
           base: main
