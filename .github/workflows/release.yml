@@ -16,7 +16,7 @@ on:
       dev:
         description: 'Is dev build'
         required: false
-        default: true
+        default: false
         type: boolean
       branch:
         description: 'Branch to run npm version patch on'
@@ -32,11 +32,10 @@ on:
         description: 'Tag name (ignored if not dev build)'
         required: false
         type: string
-        default: rc
       dev:
         description: 'Is dev build'
         required: false
-        default: true
+        default: false
         type: boolean
       branch:
         description: 'Branch to run npm version patch on'
