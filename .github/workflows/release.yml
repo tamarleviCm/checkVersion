@@ -18,11 +18,7 @@ on:
         required: false
         default: false
         type: boolean
-      branch:
-        description: 'Branch to run npm version patch on'
-        required: false
-        default: npm-version-patch
-        type: string
+    
   workflow_dispatch:
     inputs:
       cliTag:
@@ -37,11 +33,6 @@ on:
         required: false
         default: false
         type: boolean
-      branch:
-        description: 'Branch to run npm version patch on'
-        required: false
-        default: npm-version-patch
-        type: string
 
 permissions:
   id-token: write
@@ -60,21 +51,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
           GITHUB_TOKEN: ${{ secrets.TAMAR_PAT }}
+          BRANCH_NAME: npm-version-patch
     steps:
 
       # CHECKOUT PROJECT
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # - name: Create or Checkout Branch
-      #   run: |
-      #     git fetch origin
-      #     if git show-ref --verify --quiet refs/heads/${{ inputs.branch }}; then
-      #       git checkout ${{ inputs.branch }}
-      #       git pull
-      #     else
-      #       git checkout -b ${{ inputs.branch }} origin/main
-      #     fi
 
       # GIT CONFIGURATION
       - run: |
@@ -123,7 +106,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6.0.5
         with:
           token: ${{ secrets.TAMAR_PAT }}
-          branch: ${{ inputs.branch }}
+          branch: $BRANCH_NAME
           title: "Automated Changes"
           body: "This is an automated PR created by GitHub Actions"
           base: main
@@ -138,7 +121,7 @@ jobs:
         if: inputs.dev == false
         uses: octokit/request-action@v2.3.1
         with:
-          route: GET /repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${{ inputs.branch }}
+          route: GET /repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:$BRANCH_NAME
           # token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge Pull Request
