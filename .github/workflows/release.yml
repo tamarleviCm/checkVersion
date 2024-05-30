@@ -48,7 +48,7 @@ permissions:
   id-token: write
   contents: write
   packages: write
-  pull-requests: write # Added permission to manage pull requests
+  pull-requests: write 
 
 jobs:
   delete:
@@ -122,11 +122,30 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ inputs.branch }}
+          head: ${{ inputs.branch }}
           title: "Automated Changes"
           body: "This is an automated PR created by GitHub Actions"
           # base: main
           draft: false
           # delete-branch: true
+# auto-merge:
+#     runs-on: ubuntu-latest
+#     needs: create-pr
+#     steps:
+      - name: Wait for PR to be created
+        id: pr
+        uses: octokit/request-action@v2
+        with:
+          route: GET /repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${{ inputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge Pull Request
+        uses: octokit/request-action@v2
+        with:
+          route: PUT /repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.data[0].number }}/merge
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge_method: squash
+          
       # # PUBLISH NPM PACKAGE
       # - name: Publish npm package
       #   run: |
