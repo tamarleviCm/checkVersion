@@ -66,15 +66,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Create or Checkout Branch
-        run: |
-          git fetch origin
-          if git show-ref --verify --quiet refs/heads/${{ inputs.branch }}; then
-            git checkout ${{ inputs.branch }}
-            git pull
-          else
-            git checkout -b ${{ inputs.branch }} origin/main
-          fi
+      # - name: Create or Checkout Branch
+      #   run: |
+      #     git fetch origin
+      #     if git show-ref --verify --quiet refs/heads/${{ inputs.branch }}; then
+      #       git checkout ${{ inputs.branch }}
+      #       git pull
+      #     else
+      #       git checkout -b ${{ inputs.branch }} origin/main
+      #     fi
 
       # GIT CONFIGURATION
       - run: |
@@ -110,12 +110,12 @@ jobs:
           npm ci
           npm run build
 
-      # PUSH TAGS IF IT IS A RELEASE
-      - name: Push tag if release
-        if: inputs.dev == false
-        run: |
-          git pull 
-          git push --set-upstream origin ${{ inputs.branch }} && git push --tags
+      # # PUSH TAGS IF IT IS A RELEASE
+      # - name: Push tag if release
+      #   if: inputs.dev == false
+      #   run: |
+      #     git pull 
+      #     git push --set-upstream origin ${{ inputs.branch }} && git push --tags
       
       - name: Create Pull Request
         id: create_pr
