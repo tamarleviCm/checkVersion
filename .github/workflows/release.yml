@@ -137,7 +137,7 @@ jobs:
         uses: octokit/request-action@v2.3.1
         with:
           route: GET /repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${{ inputs.branch }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge Pull Request
         uses: octokit/request-action@v2.3.1
