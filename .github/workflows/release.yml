@@ -121,10 +121,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ inputs.branch }}
-          head: ${{ inputs.branch }}
           title: "Automated Changes"
           body: "This is an automated PR created by GitHub Actions"
-          # base: main
+          base: main
           draft: false
           # delete-branch: true
 # auto-merge:
