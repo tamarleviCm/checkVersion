@@ -144,7 +144,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TAMAR_PAT }}
         with:
-          route: PUT /repos/${{ github.repository }}/pulls/4/merge
+          route: PUT /repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.pull-request-number }}/merge
           # token: ${{ secrets.TAMAR_PAT }}
           merge_method: squash
           
