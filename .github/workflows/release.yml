@@ -106,7 +106,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6.0.5
         with:
           token: ${{ secrets.TAMAR_PAT }}
-          branch: $BRANCH_NAME
+          branch: ${{ env.BRANCH_NAME }}
           title: "Automated Changes"
           body: "This is an automated PR created by GitHub Actions"
           base: main
@@ -121,7 +121,7 @@ jobs:
         if: inputs.dev == false
         uses: octokit/request-action@v2.3.1
         with:
-          route: GET /repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:$BRANCH_NAME
+          route: GET /repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${{ env.BRANCH_NAME }}
           # token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge Pull Request
