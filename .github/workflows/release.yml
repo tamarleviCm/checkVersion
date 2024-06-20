@@ -93,12 +93,12 @@ jobs:
           npm ci
           npm run build
 
-      # # PUSH TAGS IF IT IS A RELEASE
-      # - name: Push tag if release
-      #   if: inputs.dev == false
-      #   run: |
-      #     git pull 
-      #     git push --set-upstream origin ${{ inputs.branch }} && git push --tags
+       # PUSH TAGS IF IT IS A RELEASE
+      - name: Push tag
+        if: inputs.dev == false
+        run: |
+          git pull 
+          git push --tags
       
       - name: Create Pull Request
         id: create_pr
