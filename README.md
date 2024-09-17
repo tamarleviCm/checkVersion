@@ -34,6 +34,7 @@ It contains technology neutral repository interfaces as well as a metadata model
 <!-- GETTING STARTED -->
 ## Getting Started
 
+
 #### Package configuration
 
 Add the following dependency:
