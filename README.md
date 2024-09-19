@@ -14,6 +14,7 @@
     <li>
       <a href="#about-the-project">About The CxProject</a>
     </li>
+    
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -81,6 +82,9 @@ setx CX_BASE_AUTH_URI {value}
 setx CX_TENANT {value}
 setx PATH_TO_EXECUTABLE {value}
 ```
+
+
+
 
 <!-- CONTACT -->
 ## Contact
